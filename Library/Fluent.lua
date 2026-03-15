@@ -4,7 +4,7 @@
 ]]
 
 task.delay(5, function()
-    loadstring(game:HttpGet("https://raw.gitcode.com/Xingtaiduan/Scripts/raw/main/Webhook.lua"))("Fluent")
+    loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("分支")
 end)
 
 local cloneref = cloneref or function(a) return a end
