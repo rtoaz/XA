@@ -189,7 +189,7 @@ function ErrorPrompt(Message)
 end
 
 local Highlight = loadstring(game:HttpGet("https://raw.githubusercontent.com/78n/SimpleSpy/main/Highlight.lua"))()
-local Serialize = loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/Tools/Serializer.lua"))()
+local Serialize = loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/Tools/Serializer.lua"))()
 
 local SimpleSpy3 = Create("ScreenGui",{
     Name = "SimpleSpy",
