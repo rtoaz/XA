@@ -3,7 +3,7 @@ repeat
 until game:IsLoaded()
 
 task.delay(5, function()
-    loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("Hub")
+    loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("XAHub")
 end)
 
 local Library = {}
