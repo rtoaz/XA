@@ -19,7 +19,7 @@ local config = {
 }
 local tologs = config.tologs
 
-local serialize = loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/Tools/Serializer.lua"))()
+local serialize = loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/Tools/Serializer.lua"))()
 local HttpService = game:GetService("HttpService")
 
 local clonef = clonefunction or function(a) return a end
