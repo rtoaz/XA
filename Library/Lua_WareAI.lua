@@ -212,11 +212,6 @@ function Library.new(Library, name)
     Library.ToggleKeybind = Enum.KeyCode.LeftControl
     UserInputService.InputBegan:Connect(function(input) if input.KeyCode == Library.ToggleKeybind then ToggleUILib() end end)
 
-    wait(0.1)
-    Main:TweenPosition(UDim2.new(0.5, 0, 2, 0), "Out", "Sine", 0.7, true)
-    wait(0.5)
-    Main:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), "Out", "Sine", 0.5, true) 
-
     local Window = {}
     function Window.Tab(Window, name, icon)
         local Tab = Instance.new("ScrollingFrame")
