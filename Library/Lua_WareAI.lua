@@ -84,6 +84,7 @@ function Library.new(Library, name)
     local dogent = Instance.new("ScreenGui")
     local Main = Instance.new("Frame")
     local TabMain = Instance.new("Frame")
+    local MainC = Instance.new("UICorner")
     local SB = Instance.new("Frame")
     local SBC = Instance.new("UICorner")
     local Side = Instance.new("Frame")
@@ -125,6 +126,10 @@ function Library.new(Library, name)
     TabMain.BackgroundTransparency = 1.000
     TabMain.Position = UDim2.new(0.217000037, 0, 0, 3)
     TabMain.Size = UDim2.new(0, 448, 0, 346)
+
+    MainC.CornerRadius = UDim.new(0, 5.5)
+    MainC.Name = "MainC"
+    MainC.Parent = Frame
 
     SB.Name = "SB"
     SB.Parent = Main
