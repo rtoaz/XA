@@ -254,11 +254,6 @@ function Library.new(Library, name)
         end
     end)
 
-    wait(0.1)
-    Main:TweenPosition(UDim2.new(0.5, 0, 2, 0), "Out", "Sine", 0.7, true)
-    wait(0.5)
-    Main:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), "Out", "Sine", 0.5, true) 
-
     local window = {}
     function window.Tab(window, name, icon)
         local Tab = Instance.new("ScrollingFrame")
