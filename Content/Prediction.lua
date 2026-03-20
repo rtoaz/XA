@@ -11,7 +11,7 @@ Prediction.__index = Prediction
 
 function Prediction.new()
 	local self = setmetatable({}, Prediction)
-	
+
 	self.lastlanding = nil
 	self.isairborne = false
 	self.smoothedpositions = {}
@@ -27,7 +27,7 @@ function Prediction.new()
 	self.smoothedprejumpdot = Vector2.new(0, 0)
 	self.time = 0
 	self.pulsetime = 0
-	
+
 	self.preddot = Drawing.new("Circle")
 	self.preddot.Radius = 6
 	self.preddot.Filled = true
@@ -35,7 +35,7 @@ function Prediction.new()
 	self.preddot.Visible = false
 	self.preddot.Transparency = 1
 	self.preddot.NumSides = 32
-	
+
 	self.landdot = Drawing.new("Circle")
 	self.landdot.Radius = 12
 	self.landdot.Filled = true
@@ -43,7 +43,7 @@ function Prediction.new()
 	self.landdot.Visible = false
 	self.landdot.Transparency = 1
 	self.landdot.NumSides = 32
-	
+
 	self.landoutline = Drawing.new("Circle")
 	self.landoutline.Radius = 18
 	self.landoutline.Filled = false
@@ -52,13 +52,13 @@ function Prediction.new()
 	self.landoutline.Transparency = 1
 	self.landoutline.Thickness = 2
 	self.landoutline.NumSides = 32
-	
+
 	self.velline = Drawing.new("Line")
 	self.velline.Color = Color3.fromRGB(0, 255, 0)
 	self.velline.Thickness = 3
 	self.velline.Visible = false
 	self.velline.Transparency = 1
-	
+
 	self.velcurve = {}
 	for i = 1, 8 do
 		local line = Drawing.new("Line")
@@ -68,7 +68,7 @@ function Prediction.new()
 		line.Transparency = 1
 		self.velcurve[i] = line
 	end
-	
+
 	self.arclines = {}
 	for i = 1, 29 do
 		local line = Drawing.new("Line")
@@ -78,7 +78,7 @@ function Prediction.new()
 		line.Transparency = 1
 		self.arclines[i] = line
 	end
-	
+
 	self.prejumplines = {}
 	for i = 1, 29 do
 		local line = Drawing.new("Line")
@@ -88,7 +88,7 @@ function Prediction.new()
 		line.Transparency = 0.7
 		self.prejumplines[i] = line
 	end
-	
+
 	self.prejumplanddot = Drawing.new("Circle")
 	self.prejumplanddot.Radius = 10
 	self.prejumplanddot.Filled = true
@@ -96,24 +96,19 @@ function Prediction.new()
 	self.prejumplanddot.Visible = false
 	self.prejumplanddot.Transparency = 0.7
 	self.prejumplanddot.NumSides = 32
-	
+
 	self.connection = nil
 	self.keybindConnection = nil
-	
-	self:setupKeybind()
-	self:start()
-	
+
+	-- 不再自动启动渲染和设置按键监听
+	-- self:setupKeybind()
+	-- self:start()
+
 	return self
 end
 
 function Prediction:setupKeybind()
-	self.keybindConnection = UserInputService.InputBegan:Connect(function(input, processed)
-		if processed then return end
-		if input.KeyCode == Enum.KeyCode.H then
-			self.prejumpenabled = not self.prejumpenabled
-			print(self.prejumpenabled and "on" or "off")
-		end
-	end)
+	-- 已移除 H 键监听功能
 end
 
 function Prediction:lerp2(a, b, t)
@@ -185,42 +180,42 @@ end
 
 function Prediction:update(dt)
 	self.pulsetime = self.pulsetime + dt
-	
+
 	local localplayer = Players.LocalPlayer
 	local char = localplayer.Character
 	if not char or not char.Parent then return end
-	
+
 	local hrp = char:FindFirstChild("HumanoidRootPart")
 	local hum = char:FindFirstChild("Humanoid")
 	if not hrp or not hum then return end
-	
+
 	local p0 = hrp.Position
 	local v0 = hrp.AssemblyLinearVelocity
 	local grounded = self:isgrounded(hrp)
-	
+
 	local currentcf = workspace.CurrentCamera.CFrame
 	local relativecf = self.lastcameracf:Inverse() * currentcf
 	local _, yaw, _ = relativecf:ToEulerAnglesXYZ()
 	local turndir = yaw / math.max(dt, 0.001)
 	self.cameraturnspeed = self.cameraturnspeed * 0.7 + turndir * 0.3
 	self.lastcameracf = currentcf
-	
+
 	local wasairborne = self.isairborne
 	self.isairborne = not grounded and v0.Y < -5
-	
+
 	if not wasairborne and self.isairborne then
 		self.lastlanding = nil
 	end
-	
+
 	if self.isairborne and grounded then
 		self.lastlanding = nil
 	end
-	
+
 	local pred3 = self:predictpos(p0, v0, 0.25)
 	local pred2, predon = self:toscreen(pred3)
 	self.preddot.Position = pred2
 	self.preddot.Visible = predon and self:isvisible(pred3)
-	
+
 	if v0.Magnitude > 1 then
 		local curvature = -self.cameraturnspeed * 0.8
 		local vellength = math.min(v0.Magnitude * 0.5, 20)
@@ -252,7 +247,7 @@ function Prediction:update(dt)
 			self.velcurve[i].Visible = false
 		end
 	end
-	
+
 	local positions, landing = self:simulate(p0, v0)
 	if #positions > 1 then
 		for i = 1, 29 do
@@ -275,11 +270,11 @@ function Prediction:update(dt)
 			self.arclines[i].Visible = false
 		end
 	end
-	
+
 	if self.isairborne and landing then
 		self.lastlanding = landing
 	end
-	
+
 	if self.lastlanding and self.isairborne then
 		local land2, landon = self:toscreen(self.lastlanding)
 		self.landdot.Position = land2
@@ -293,7 +288,7 @@ function Prediction:update(dt)
 		self.landdot.Visible = false
 		self.landoutline.Visible = false
 	end
-	
+
 	if self.prejumpenabled and not self.isairborne then
 		local camlook = workspace.CurrentCamera.CFrame.LookVector
 		local camright = workspace.CurrentCamera.CFrame.RightVector
