@@ -340,18 +340,37 @@ function Prediction:update(dt)
 	end
 end
 
-function Prediction:start()
-	if self.connection then return end
-	self.connection = RunService.RenderStepped:Connect(function(dt)
-		self:update(dt)
-	end)
+function Prediction:hideAll() 
+    self.preddot.Visible = false
+    self.landdot.Visible = false
+    self.landoutline.Visible = false
+    self.velline.Visible = false
+    
+    for i = 1, 8 do
+        self.velcurve[i].Visible = false
+    end
+    
+    for i = 1, 29 do
+        self.arclines[i].Visible = false
+        self.prejumplines[i].Visible = false
+    end
+    
+    self.prejumplanddot.Visible = false
 end
 
-function Prediction:stop()
-	if self.connection then
-		self.connection:Disconnect()
-		self.connection = nil
-	end
+function Prediction:stop() 
+    if self.connection then
+        self.connection:Disconnect()
+        self.connection = nil
+    end
+    self:hideAll()
+end
+
+function Prediction:start()
+    if self.connection then return end
+    self.connection = RunService.RenderStepped:Connect(function(dt)
+        self:update(dt)
+    end)
 end
 
 function Prediction:destroy()
