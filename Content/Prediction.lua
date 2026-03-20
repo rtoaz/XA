@@ -100,15 +100,7 @@ function Prediction.new()
 	self.connection = nil
 	self.keybindConnection = nil
 
-	-- 不再自动启动渲染和设置按键监听
-	-- self:setupKeybind()
-	-- self:start()
-
 	return self
-end
-
-function Prediction:setupKeybind()
-	-- 已移除 H 键监听功能
 end
 
 function Prediction:lerp2(a, b, t)
