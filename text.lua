@@ -1,1 +1,1 @@
---notify("XA：提示", "XA Hub QQ群1057545155", 5)
+notify("XA：提示", "XA Hub QQ群1057545155", 5)
