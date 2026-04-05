@@ -14,14 +14,13 @@ local UserInputService = cloneref(game:GetService("UserInputService"))
 
 local gethui = gethui or function() return CoreGui end
 local mouse = cloneref(Players.LocalPlayer:GetMouse())
-if not _G.XA["翻译"] then
 local LocaleId = Players.LocalPlayer.LocaleId
 local ShouldTranslate = LocaleId:sub(1, 2) ~= "zh"
 local Translation
 if ShouldTranslate then
     Translation = loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/XATranslation.lua"))()
 end
-end
+
 local function Translate(zhtext)
     if not ShouldTranslate then return zhtext end
     if Translation[zhtext] then
