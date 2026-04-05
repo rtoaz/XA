@@ -14,7 +14,7 @@ local UserInputService = cloneref(game:GetService("UserInputService"))
 
 local gethui = gethui or function() return CoreGui end
 local mouse = cloneref(Players.LocalPlayer:GetMouse())
-if not _G.XA["翻译"] then
+--if not _G.XA["翻译"] then
 local LocaleId = Players.LocalPlayer.LocaleId
 local ShouldTranslate = LocaleId:sub(1, 2) ~= "zh"
 local Translation
@@ -32,7 +32,7 @@ local function Translate(zhtext)
         return zhtext
     end
 end
-end
+--end
 local function Tween(obj, t, data)
 	TweenService:Create(obj, TweenInfo.new(t[1], Enum.EasingStyle[t[2]], Enum.EasingDirection[t[3]]), data):Play()
 	return true
