@@ -15,7 +15,7 @@ local UserInputService = cloneref(game:GetService("UserInputService"))
 local gethui = gethui or function() return CoreGui end
 local mouse = cloneref(Players.LocalPlayer:GetMouse())
 local LocaleId = Players.LocalPlayer.LocaleId
-local ShouldTranslate = LocaleId:sub(1, 2) ~= "zh"
+local ShouldTranslate = (not _G.XA_Translation) and (LocaleId:sub(1,2) ~= "zh") or false
 local Translation
 if ShouldTranslate then
     Translation = loadstring(game:HttpGet("https://raw.gitcode.com/XiaoYunUwU/XA/raw/main/XATranslation.lua"))()
