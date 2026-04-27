@@ -1,0 +1,38 @@
+name: 同步
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */5 * * *'
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检查仓库
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: 执行逻辑
+        run: |
+          # 1. 设置身份
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 2. 添加源仓库
+          git remote add upstream https://gitcode.com/XiaoYunUwU/XA.git
+          git fetch upstream main
+          
+          # 3. 创建临时分支
+          git checkout -b temp_sync upstream/main
+          
+          # 4. 保留本仓库 workflow
+          git checkout main -- .github/ || true
+          
+          # 5. 提交
+          git commit -m "Sync upstream and preserve workflow" || echo "No changes"
+          
+          # 6. 推送
+          git push "https://${{ github.actor }}:${{ secrets.COPY }}@github.com/${{ github.repository }}.git" temp_sync:main --force
